@@ -14,7 +14,8 @@ ReconAIscanner is a tool designed for the reconnaissance of nearby Wi-Fi network
 - 🛑 **Graceful Exit:** Stop scanning with `CTRL-C` and print all collected results.
 
 ### Planned Features
-- 📋 **NEN (Network Exit Notification):** Execute reporting functionality on any exit.
+- ⚠️ **Autonomous Mode:** Agentic workflows that manage continuous scanning. The default is cli driven and 120seconds
+- 📋 **NEN (Network Exit Notification):** Extensive and varied reporting delivered via WhatsApp and in JSON for further analysis
 - 📲 **WhatsApp Notifications:** Get real-time alerts via WhatsApp.
 - 🔄 **Continuous Monitoring:** Track specific targets continuously.
 - ⚠️ **Suspicious Activity Monitoring:** Monitor for unusual wireless network activities.
