@@ -4,3 +4,4 @@
 *.fmt
 *.json
 _nen/
+rustscan/

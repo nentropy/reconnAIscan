@@ -1,75 +1,100 @@
-# Nearby
-
-[![Crates.io](https://img.shields.io/crates/v/nearby.svg)](https://crates.io/crates/nearby)
-[![Build Status](https://travis-ci.org/wisespace-io/nearby.png?branch=master)](https://travis-ci.org/wisespace-io/nearby)
+# 📡 ReconAIScanner
 [![MIT licensed](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE-MIT)
 [![Apache-2.0 licensed](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE-APACHE)
 
-## Description
+## 📜 Summary
 
-Scans nearby wifi networks and the devices connected to each network.
+ReconAIscanner is a tool designed for the reconnaissance of nearby Wi-Fi networks and the devices connected to them. It is primarily intended for research purposes, allowing users to monitor network activity, identify devices, and analyze wireless traffic. **This tool is for research purposes only and should be used responsibly.**
 
-## Planned features
+## 🚀 Features
 
-- [x] Map nearby devices ([Netjson for visualization](https://github.com/netjson/netjsongraph.js))
-- [x] Count the number of people around you
-- [x] Stop Scanning with CTRL-C and print all collected results
-- [ ] Monitor suspicious wireless network activities
-- [ ] GeoLocation (Monitor usage of less common SSIDs)
-- [ ] Watch specific Mac Address (Send alert by email)
-- [ ] BLE Indoor Positioning
+### Implemented Features
+- 🗺️ **Map Nearby Devices:** Visualize connected devices using [Netjson](https://github.com/netjson/netjsongraph.js).
+- 🔢 **People Counter:** Count the number of people around you based on mobile device probe requests.
+- 🛑 **Graceful Exit:** Stop scanning with `CTRL-C` and print all collected results.
 
-## Build
+### Planned Features
+- 📋 **NEN (Network Exit Notification):** Execute reporting functionality on any exit.
+- 📲 **WhatsApp Notifications:** Get real-time alerts via WhatsApp.
+- 🔄 **Continuous Monitoring:** Track specific targets continuously.
+- ⚠️ **Suspicious Activity Monitoring:** Monitor for unusual wireless network activities.
+- 🌍 **GeoLocation:** Track usage of less common SSIDs.
+- 📧 **MAC Address Alerts:** Watch specific MAC addresses and send email alerts.
+- 📍 **BLE Indoor Positioning:** Implement BLE-based indoor positioning.
 
-On Debian based Linux, install `apt-get install libpcap-dev`, so build the project:
+## 🛠️ Build Instructions
 
-```rust
+### Prerequisites
+Ensure you have the necessary dependencies installed. On Debian-based Linux distributions, you can install the required library with:
+```bash
+sudo apt-get install libpcap-dev
+```
+
+### Building the Project
+To build ReconAIscanner, use the following command:
+```bash
 cargo build --release
 ```
 
-## Usage
+## 🧑‍💻 Usage
 
-### Nearby Devices
+### Scanning Nearby Devices
 
-Root access is required to `nearby` be able to set the wireless interface on `Monitor Mode`
-You can list the network interfaces with `ip link show` on Ubuntu.
+**Root access** is required for ReconAIscanner to set the wireless interface to `Monitor Mode`.
 
-```rust
-sudo target/release/nearby -i your_wireless_adapter
+1. **Identify Network Interfaces:**
+   List network interfaces using:
+   ```bash
+   ip link show
+   ```
+   or use `iwconfig` to identify your wireless adapter (e.g., wlan0).
+
+2. **Start Scanning:**
+   ```bash
+   sudo target/release/ReconAIscanner -i your_wireless_adapter
+   ```
+
+3. **Generate Network Visualization:**
+   To generate `networks.json` for visualization:
+   ```bash
+   sudo target/release/ReconAIscanner -i your_wireless_adapter --netjson
+   ```
+
+4. **Start Webserver for Visualization:**
+   ```bash
+   target/release/ReconAIscanner --graph
+   ```
+
+### Counting People Around You
+
+Use the following command to generate `people.json` by watching Probe Requests:
+```bash
+sudo target/release/ReconAIscanner -i your_wireless_adapter --people
 ```
 
-I.e: wlan0, or just run iwconfig to get it
+### ⚠️ Notes
+- **Scan Duration:** The default scan time is 120s. If the program stops working after a short period with the error message `libpcap error: The interface went down`, it might be caused by another process (e.g., `network-manager`). Consider stopping the conflicting process:
+   ```bash
+   sudo service network-manager stop
+   ```
 
-Use `--netjson` to generate `networks.json` and use it as input to visualization
+## 🔌 WiFi Adapter Requirements
 
-```rust
-sudo target/release/nearby -i your_wireless_adapter --netjson
-```
-
-Use `--graph` to start a webserver and visualize the generated file (`networks.json`)
-
-```rust
-target/release/nearby --graph
-```
-
-### People around you
-
-Use `--people` to generate `people.json`. It will watch Probe Requests and filter the mobiles according to a specified mobile phone vendor list.
-
-```rust
-sudo target/release/nearby -i your_wireless_adapter --people
-```
-
-Note: The default scan time is 120s, if it stops working after a short period of time often with the error message `libpcap error: The interface went down`, it may be because another running process is causing it. On Ubuntu, you may be the network-manager, try `service network-manager stop`.
-
-## Wifi adapter should support monitor mode
-
-There are many USB Wifi adapters that support monitor mode, i.e:
-
-- Alfa AWUS036NHA
+#### Your WiFi adapter must support monitor mode. Some recommended adapters include:
+- Alfa AWUS036NHA (Author tested)
 - Alfa AWUS036NEH
 - TP-Link TL-WN722N (ONLY Version 1)
 
-## Disclaimer
+## ⚖️ Disclaimer
 
-It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
+It is the end user's responsibility to comply with all applicable local, state, and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program.
+
+## 👤 Author
+
+- **New Author:** Nentropy [nentropy.x@gmail.com](mailto:nentropy.x@gmail.com)
+
+## 🙏 Credits
+
+This project is a modernization and extension of the original [Nearby](https://github.com/wisespace-io/nearby) project by [wisespace-io](https://github.com/wisespace-io).
+
+--- 
