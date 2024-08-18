@@ -29,3 +29,5 @@ serde = { version = "1.0", features = ["derive"] }
 error-chain = { version = "0.12", default-features = false }
 sqlite3 = "0.24.0"
 rustscan = "2.3.0"
+uuid = "1.10.0"
+tokio = "1.39.3"
