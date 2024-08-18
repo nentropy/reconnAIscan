@@ -10,6 +10,7 @@ mod linux_device_management;
 mod mapper;
 mod server;
 mod util;
+mod db;
 
 use crate::errors::*;
 use crate::dot11::header::*;
